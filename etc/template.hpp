@@ -4,6 +4,7 @@
  * Written : %author%, %company%
  * Date : %date%
  * Copyright (c) %cyear% %author% <%email%>
+ * Definition of %namespace%::%classname%
  * %brief%
  *===========================================================================*/
 
@@ -21,29 +22,29 @@
 
 %namespace-open%
 
-class %file-without-ext% {
+class %classname% {
  public:
   /*!
    * Defoult constructor
    */
-  %file-without-ext%(void);
+  %classname%(void);
 
   /*!
    * Default destructor
    */
-  ~%file-without-ext%(void);
+  ~%classname%(void);
 
   /*!
    * Copy constructor
    */
-  %file-without-ext%(const %file-without-ext%& rhs);
+  %classname%(const %classname%& rhs);
 
   /*!
    * Assignment operator
    * @param rhs Right hand side
    * @return pointer of this object
    */
-  %file-without-ext%& operator=(const %file-without-ext%& rhs);
+  %classname%& operator=(const %classname%& rhs);
 };
 
 /*!
@@ -52,7 +53,7 @@ class %file-without-ext% {
  * @param rhs Right hand side
  * @return Pointer of google::LogSink object
  */
-google::LogSink& operator<<(google::LogSink& lhs, const %file-without-ext%& rhs);
+google::LogSink& operator<<(google::LogSink& lhs, const %classname%& rhs);
 
 %namespace-close%
 

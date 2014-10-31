@@ -10,9 +10,17 @@
 ; auto-completeでC/C++ヘッダを補完できるようにする
 (defun my:ac-c-header-init()
   (require 'auto-complete-c-headers)
-  (add-to-list 'ac-sources 'ac-source-c-headers)
+  ;(add-to-list 'ac-sources 'ac-source-c-headers)
   (add-to-list 'achead:include-directories "/usr/include/c++/4.8")
+  (add-to-list 'achead:include-directories "/usr/include")
+  (add-to-list 'achead:include-directories "~/opencv3/include")
+  (add-to-list 'achead:include-directories "~/Qt/5.3/gcc_64/include")
 )
+
+(defun ac-cc-mode-setup()
+  (setq ac-sources (append '(ac-source-gtags) ac-sources))
+)
+
 
 ; googleコーディングスタイル動的にチェックできるようにする
 (defun my:flymake-google-init ()
@@ -29,6 +37,7 @@
 (add-hook 'c-mode-hook 'my:flymake-google-init)
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+(add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
 
 ; 拡張子とモードの結びつけ
 (setq auto-mode-alist
@@ -42,20 +51,19 @@
 
 ; C/C++言語ファイルのテンプレート
 (when (require 'autoinsert)
-  (require 'auto-insert-choose)
+  ;(require 'auto-insert-choose)
   (setq auto-insert-directory "~/.emacs.d/etc/")
   (setq auto-insert-alist
 	(append '(
-		  ("main.c$" . ["tempmain.c" my-template])
+		  ("main.c" . ["tempmain.c" my-template])
 		  ("\\.c$" . ["template.c" my-template])
-		  ("main.cpp$" . ["tempmain.cpp" my-template])
+		  ("main.cpp" . ["tempmain.cpp" my-template])
 		  ("\\.cpp$" . ["template.cpp" my-template])
-		  ("globalDef.h$" . ["tempglobalDef.h" my-template] )
+		  ("globalDef.h" . ["tempglobalDef.h" my-template] )
 		  ("\\.h$" . ["template.h" my-template])
-		  ("globalDef.h$" . ["tempglobalDef.hpp" my-template])
+		  ("globalDef.hpp" . ["tempglobalDef.hpp" my-template])
 		  ("\\.hpp$" . ["template.hpp" my-template])
-		   auto-insert-alist))
-	)
+		  ) auto-insert-alist))
   )
 
 ; ファイル発見時の動作に結びつけ
@@ -82,13 +90,20 @@
     ("%file-without-ext%" . (lambda () 
           (setq file-without-ext (file-name-sans-extension
                                    (file-name-nondirectory (buffer-file-name))))))
+    ("%classname%" . (lambda() 
+		   (concat (upcase-initials file-without-ext))))
     ("%namespace%" .
-         (lambda () (setq namespace (read-from-minibuffer "namespace: "))))
+         (lambda () (setq namespace (concat 
+				     (downcase project)
+				     "_"
+				     (read-from-minibuffer "namespace: ")
+				     ))))
     ("%include%" .
          (lambda () 
-           (cond ((string= namespace "") (concat "\"" file-without-ext ".h\""))
-                 (t (concat "<" (replace-regexp-in-string "::" "/" namespace) "/"
-                            file-without-ext ".h>")))))
+	   (concat "<" file-without-ext ".h>")))
+           ;(cond ((string= namespace "") (concat "\"" file-without-ext ".h\""))
+           ;      (t (concat "<" (replace-regexp-in-string "::" "/" namespace) "/"
+           ;                 file-without-ext ".h>")))))
     ("%include-guard%" . 
          (lambda ()
            (format "%s_H_"

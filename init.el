@@ -45,6 +45,7 @@
 )
 
 ;; auto-completeの起動
+;(global-auto-complete-mode t)
 (require 'auto-complete)
 ; auto-completeの設定
 (when (require 'auto-complete-config nil t)
@@ -54,8 +55,22 @@
 			  "~/.emacs.d/ac-comphist.dat"))
 )
 (ac-config-default)
+(setq ac-auto-start 4)
+(setq ac-auto-show-menu 0.8)
+(setq ac-use-comphist t)
+(setq ac-candidate-limit nil)
+(setq ac-use-quick-help t)
+(setq ac-use-menu-map t)
+(define-key ac-menu-map (kbd "C-n") 'ac-next)
+(define-key ac-menu-map (kbd "C-p") 'ac-previous)
+(define-key ac-completing-map (kbd "ESC") 'ac-stop)
+(ac-set-trigger-key "TAB")
+;(define-key ac-menu-map (kbd "<tab>") 'ac-complete)
 
 ;; yasnippetの設定
+;(defalias 'yas/get-snippet-tables 'yas--get-snippet-tables)
+;(defalias 'yas/table-hash 'yas--table-hash)
+
 ; snippet保存先
 (add-to-list 'load-path "~/.emacs.d/public_repos")
 (require 'yasnippet)
@@ -63,7 +78,13 @@
       '("~/.emacs.d/public_repos/snippets"
 	"~/.emacs.d/public_repos/extras/imported")
       )
-(yas/global-mode 1)
+;(yas/global-mode 1)
+; auto-completeとの競合解決
+;(setf (symbol-function 'yas-active-keys)
+;      (lambda ()
+;	(remove-duplicates
+;	 (mapcan #'yas--table-all-keys (yas-get-snippet-tables)))))
+
 
 ;(when(require 'yasnippet nil t)
 ;  (setq yas-snippet-dirs
@@ -72,13 +93,15 @@
 ;	 (yas/global-mode 1)
 ;)
 
+
+
 ;; CEDET関連の設定
 ; Semantic設定
+(semantic-mode 1)
 (add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode)
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-local-symbol-hightlight-mode)
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
-(semantic-mode 1)
 (require 'semantic/ia) ; インタラクティブアナライザの起動
 ;(require 'semantic/bovine/gcc) ; 文法チェック?
 (setq qt53-base-dir "/home/takayaman/Qt/5.3/gcc_64/include")
@@ -117,7 +140,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("d04dd8b4037085a93353a66660c7a6bf2aacd89f5c5c253db09ba15b4938be60" default))))
+ '(custom-safe-themes (quote ("d04dd8b4037085a93353a66660c7a6bf2aacd89f5c5c253db09ba15b4938be60" default)))
+ '(ecb-options-version "2.40")
+ '(ede-project-directories (quote ("/home/takayaman/temp/myproject/include" "/home/takayaman/temp/myproject/src" "/home/takayaman/temp/myproject")))
+ '(flymake-google-cpplint-command "/usr/local/bin/cpplint.py"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -170,3 +196,6 @@
     (setq default-directory "~/")
 )
 
+;; Trampのハング対応
+(setq tramp-chunksize 500)
+(setq tramp-prompt-pattern "\\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>].* *\\(^[\\[[0-9;]*[a-zA-Z] *\\)*")

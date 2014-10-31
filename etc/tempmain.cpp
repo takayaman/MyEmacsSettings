@@ -4,6 +4,7 @@
  * Written : %author%, %company%
  * Date : %date%
  * Copyright (c) %cyear% %author% <%email%>
+ * Entry point of %project%
  * %brief%
  *===========================================================================*/
 

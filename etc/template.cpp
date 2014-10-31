@@ -4,6 +4,7 @@
  * Written : %author%, %company%
  * Date : %date%
  * Copyright (c) %cyear% %author% <%email%>
+ * Implementation of %namespace%::%classname%
  * %brief%
  *===========================================================================*/
 
@@ -22,19 +23,19 @@
 /*--- Constructor / Destructor / Initialize ---------------------------------*/
 
 /* Defoult constructor */
-%file-without-ext%::%file-without-ext%() {
+%classname%::%classname%() {
 }
 
 /* Default destructor */
-%file-without-ext%::~%file-without-ext%() {
+%classname%::~%classname%() {
 }
 
 /*  Copy constructor */
-%file-without-ext%::%file-without-ext%(const %file-without-ext%& rhs) {
+%classname%::%classname%(const %classname%& rhs) {
 }
 
 /* Assignment operator */
-%file-without-ext%& %file-without-ext%::operator=(const %file-without-ext%& rhs) {
+%classname%& %classname%::operator=(const %classname%& rhs) {
   if (this != &rhs) {
     // TODO(%author%): implement copy
   }
@@ -44,8 +45,8 @@
 /*--- Operation -------------------------------------------------------------*/
 
 /*  Log output operator */
-google::LogSink& operator<<(google::LogSink& lhs, const %file-without-ext%& rhs) {
-  lhs << "%namespace%::%file-without-ext%{" <<
+google::LogSink& operator<<(google::LogSink& lhs, const %classname%& rhs) {
+  lhs << "%namespace%::%classname%{" <<
       // TODO(%author%): implement out stream of memder data
       "}";
   return lhs;
