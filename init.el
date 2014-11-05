@@ -103,7 +103,7 @@
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
 (require 'semantic/ia) ; インタラクティブアナライザの起動
-;(require 'semantic/bovine/gcc) ; 文法チェック?
+(require 'semantic/bovine/gcc) ; 文法チェック?
 (setq qt53-base-dir "/home/takayaman/Qt/5.3/gcc_64/include")
 (semantic-add-system-include qt53-base-dir 'c++-mode)
 (setq opencv3-base-dir "/home/takayaman/opencv3/include")

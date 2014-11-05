@@ -32,7 +32,7 @@
 (setq YaTeX-modify-mode t)
 (setq YaTeX-close-paren-always nil)
 
-; yatex outline-minor-mode
+; yatex outline-minor-mode--------------------------------------
 (setq-default outline-level 'outline-level)
 (defun my:yatex-mode-hook ()
   (make-variable-buffer-local 'outline-level)
@@ -56,5 +56,8 @@
       )
     )
 )
+
 (add-hook 'yatex-mode-hook 'my:yatex-mode-hook)
 (add-hook 'yatex-mode-hook '(lambda () (outline-minor-mode t)))
+(add-hook 'yatex-mode-hook '(lambda () (local-set-key "\C-c\C-d" 'sdic)))
+
