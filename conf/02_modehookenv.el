@@ -1,5 +1,13 @@
 ;; Emacs環境設定 モード毎の設定
 
+;; fileオープン時に同じフォルダにede設定ファイルがあるか探す --> ironyモードに鞍替えしたので不要
+;(defun check-for-Project-el ()
+;  (if (file-exists-p "Project.el")
+;      (load-file "Project.el")
+;    )
+;)
+;(add-hook 'find-file-hook 'check-for-Project-el)
+
 ; outline-mode全体設定
 (setq outline-minor-mode-prefix "\C-c\C-o")
 (eval-after-load 'outline
@@ -14,10 +22,10 @@
 (sdic-inline-mode t)
 (setq sdic-inline-world-at-point-strinct t)
 ; 辞書ファイル設定
-(if (eq system-type 'gnu/linux)
-    (setq sdic-inline-eiwa-dictionary "/usr/share/dict/gene.sdic")
-  (setq sdic-inline-waei-dictionary "/usr/share/dict/jedict.sdic")
-  )
+(cond ((eq system-type 'gnu/linux)
+       (setq sdic-inline-eiwa-dictionary "/usr/share/dict/gene.sdic")
+       (setq sdic-inline-waei-dictionary "/usr/share/dict/jedict.sdic")
+       ))
 ; sdit tooltip
 (require 'sdic-inline-pos-tip)
 (setq sdic-inline-display-func 'sdic-inline-pos-tip-show)

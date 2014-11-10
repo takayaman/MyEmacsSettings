@@ -7,18 +7,56 @@
 ; C/C++mode時にgoogleコーディングスタイルを適用する
 (require 'google-c-style)
 
+; irony-mode
+(require 'irony)
+(defun my:irony-cc-mode-setup ()
+  (irony-mode 1)
+  (define-key irony-mode-map [remap completion-at-point]
+    'irony-completion-at-point-async)
+  (define-key irony-mode-map [remap complete-symbol]
+    'irony-completion-at-point-async)
+  )
+
+; gtags
+(defun my:gtags-cc-mode-setup()
+  (gtags-mode 1)
+)
+
+
+; doxymacs
+(require 'doxymacs)
+(defun my:doxymacs-cc-mode-setup()
+  (doxymacs-font-lock)
+  (doxymacs-mode 1)
+)
+
 ; auto-completeでC/C++ヘッダを補完できるようにする
 (defun my:ac-c-header-init()
   (require 'auto-complete-c-headers)
   ;(add-to-list 'ac-sources 'ac-source-c-headers)
   (add-to-list 'achead:include-directories "/usr/include/c++/4.8")
   (add-to-list 'achead:include-directories "/usr/include")
-  (add-to-list 'achead:include-directories "~/opencv3/include")
-  (add-to-list 'achead:include-directories "~/Qt/5.3/gcc_64/include")
+  (add-to-list 'achead:include-directories "/home/takayaman/opencv3/build/include")
+  (add-to-list 'achead:include-directories "/home/takayaman/Qt/5.3/gcc_64/include")
 )
 
-(defun ac-cc-mode-setup()
-  (setq ac-sources (append '(ac-source-gtags) ac-sources))
+; auto-completeのデフォルト設定を上書き
+(defun ac-cc-mode-setup ()
+  (require 'ac-irony)
+  (define-key irony-mode-map (kbd "M-RET") 'ac-complete-irony-async)
+  (setq ac-sources '(ac-source-filename
+		     ac-source-dictionary
+		     ac-source-abbrev
+		     ac-source-gtags
+		     ac-source-irony
+		     ac-source-semantic
+		     ;ac-source-yasnippet
+		     ))
+  ;(local-set-key (kbd "<C-tab>") 'ac-complete-semantic)
+;  (add-to-list 'ac-omni-completion-sources
+;	       (cons "\\." '(ac-source-semantic)))
+;  (add-to-list 'ac-omni-completion-sources
+;	       (cons "->" '(ac-source-semantic)))
 )
 
 
@@ -31,13 +69,18 @@
 )
 
 ; C/C++ modeに関連付け
+(add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+(add-hook 'c-mode-hook 'my:irony-cc-mode-setup)
+(add-hook 'c++-mode-hook 'my:irony-cc-mode-setup)
+(add-hook 'c-mode-common-hook 'my:gtags-cc-mode-setup)
+(add-hook 'c-mode-common-hook 'my:doxymacs-cc-mode-setup)
 (add-hook 'c++-mode-hook 'my:ac-c-header-init)
 (add-hook 'c-mode-hook 'my:ac-c-header-init)
 (add-hook 'c++-mode-hook 'my:flymake-google-init)
 (add-hook 'c-mode-hook 'my:flymake-google-init)
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
-(add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+
 
 ; 拡張子とモードの結びつけ
 (setq auto-mode-alist
@@ -63,6 +106,7 @@
 		  ("\\.h$" . ["template.h" my-template])
 		  ("globalDef.hpp" . ["tempglobalDef.hpp" my-template])
 		  ("\\.hpp$" . ["template.hpp" my-template])
+		  ("Project.el" . ["tempProject.el" my-eltemplate])
 		  ) auto-insert-alist))
   )
 
@@ -149,3 +193,20 @@
                    (eval namespace-text))))))
 ))
 
+
+(defun my-eltemplate ()
+  (time-stamp)
+  (mapc #'(lambda(c)
+            (progn
+              (goto-char (point-min))
+              (replace-string (car c) (funcall (cdr c)) nil)))
+        eltemplate-replacements-alists)
+  (goto-char (point-max))
+  (message "done.")
+)
+
+(defvar eltemplate-replacements-alists
+  '(
+    ("%project%" . (lambda () (setq project (read-from-minibuffer "project: "))))
+    )
+  )

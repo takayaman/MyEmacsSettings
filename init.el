@@ -78,45 +78,70 @@
       '("~/.emacs.d/public_repos/snippets"
 	"~/.emacs.d/public_repos/extras/imported")
       )
-;(yas/global-mode 1)
+(yas/global-mode 1)
+; auto-completeと競合するのでキーを変える
+(custom-set-variables '(yas-trigger-key "<C-tab>"))
+; 既存スニペット挿入
+(define-key yas-minor-mode-map (kbd "C-x y i") 'yas-insert-snippet)
+; 新規スニペットを作成するバッファを用意
+(define-key yas-minor-mode-map (kbd "C-x y n") 'yas-new-snippet)
+; 既存スニペットを閲覧・編集
+(define-key yas-minor-mode-map (kbd "C-x y v") 'yas-visit-snippet-file)
+
+;(yas-reload-all)
 ; auto-completeとの競合解決
-;(setf (symbol-function 'yas-active-keys)
-;      (lambda ()
-;	(remove-duplicates
-;	 (mapcan #'yas--table-all-keys (yas-get-snippet-tables)))))
+(setf (symbol-function 'yas-active-keys)
+      (lambda ()
+	(remove-duplicates
+	 (mapcan #'yas--table-all-keys (yas-get-snippet-tables)))))
 
-
-;(when(require 'yasnippet nil t)
-;  (setq yas-snippet-dirs
-;		'("~/.emacs.d/public_repos/snippets"
-;		"~/.emacs.d/public_repos/extras/imported"))
-;	 (yas/global-mode 1)
-;)
-
-
-
-;; CEDET関連の設定
+;; CEDET関連の設定 built-inではなくローカルから読むので -----> irony-modeに鞍替え
+; 先頭に書く必要がある
 ; Semantic設定
-(semantic-mode 1)
-(add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-local-symbol-hightlight-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
-(require 'semantic/ia) ; インタラクティブアナライザの起動
-(require 'semantic/bovine/gcc) ; 文法チェック?
-(setq qt53-base-dir "/home/takayaman/Qt/5.3/gcc_64/include")
-(semantic-add-system-include qt53-base-dir 'c++-mode)
-(setq opencv3-base-dir "/home/takayaman/opencv3/include")
-(semantic-add-system-include opencv3-base-dir 'c++-mode)
+;(load-file "~/cedet/cedet-devel-load.el")
+;(semantic-mode 1)
+;(add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode)
+;(add-to-list 'semantic-default-submodes 'global-semantic-idle-local-symbol-hightlight-mode)
+;(add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
+;(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
+;(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
+;(semantic-mode 1)
+;(require 'semantic/ia) ; インタラクティブアナライザの起動
+;(require 'semantic/bovine/gcc) ; 文法チェック?
+;(cond ((eq system-type 'gnu/linux)
+;       (setq qt53-base-dir "/home/takayaman/Qt/5.3/gcc_64/include")
+;       (setq opencv3-base-dir "/home/takayaman/opencv3/build/include")
+;       ))
+;(semantic-add-system-include qt53-base-dir 'c++-mode)
+;(semantic-add-system-include opencv3-base-dir 'c++-mode)
 
-; Semanticの作成したTAGデータをauto-completeの補完候補にする
-(defun my:add-semantic-to-autocomplete()
-  (add-to-list 'ac-sources 'ac-source-semantic)
-)
-(add-hook 'c-mode-common-hook 'my:add-semantic-to-autocomplete)
 
 ; EDE関連の設定 emacs用のcmake, qmakeのようなもの
-(global-ede-mode 1)
+; edeのプロジェクトロード時のエラー対策
+;(cond ((eq system-type 'gnu/linux)
+;       (require 'cedet)
+;       (require 'eieio)
+;       (require 'eieio-speedbar)
+;       (require 'eieio-opt)
+;       (require 'eieio-base)
+;       (require 'ede/source)
+;       (require 'ede/base)
+;       (require 'ede/auto)
+;       (require 'ede/proj)
+;       (require 'ede/proj-archive)
+;       (require 'ede/proj-aux)
+;       (require 'ede/proj-comp)
+;       (require 'ede/proj-elisp)
+;       (require 'ede/proj-info)
+;       (require 'ede/proj-misc)
+;       (require 'ede/proj-obj)
+;       (require 'ede/proj-prog)
+;       (require 'ede/proj-scheme)
+;       (require 'ede/proj-shared)
+;       )
+;      )
+
+;(global-ede-mode 1)
 ; Lisp内でEDEのパスを直接指定する場合の書き方
 ; もう少し上手い方法が無いか模索中
 ;(ede-cpp-root-project "my_project" :file "~/testcpp/src/main.cpp"
@@ -142,7 +167,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes (quote ("d04dd8b4037085a93353a66660c7a6bf2aacd89f5c5c253db09ba15b4938be60" default)))
  '(ecb-options-version "2.40")
- '(ede-project-directories (quote ("/home/takayaman/temp/myproject/include" "/home/takayaman/temp/myproject/src" "/home/takayaman/temp/myproject")))
+ '(ede-project-directories (quote ("/home/takayaman/Documents/Programming/opencv/CvDisplayImage" "/home/takayaman/Documents/Programming/opencv" "/home/takayaman/temp/myproject/include" "/home/takayaman/temp/myproject/src" "/home/takayaman/temp/myproject")))
  '(flymake-google-cpplint-command "/usr/local/bin/cpplint.py"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -182,8 +207,11 @@
 (require 'init-loader)
 (init-loader-load "~/.emacs.d/conf")
 
-; shellからパスを引き継ぐ
-(exec-path-from-shell-initialize)
+; shellから環境変数を引き継ぐ
+;(exec-path-from-shell-initialize)
+(let ((envs '("PATH" "PKG_CONFIG_PATH" "DMYGITPATH" "LD_LIBRARY_PATH")))
+  (exec-path-from-shell-copy-envs envs)
+)
 
 ;; HOMEディレクトリの設定
 (if (eq system-type 'gnu/linux)
