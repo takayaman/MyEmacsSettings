@@ -45,10 +45,10 @@
 /*--- Operation -------------------------------------------------------------*/
 
 /*  Log output operator */
-google::LogSink& operator<<(google::LogSink& lhs, const %classname%& rhs) {
-  lhs << "%namespace%::%classname%{" <<
+google::LogMessage& operator<<(google::LogMessage& lhs, const %classname%& rhs) {
+  lhs.stream() << "%namespace%::%classname%{" <<
       // TODO(%author%): implement out stream of memder data
-      "}";
+      "}" << std::endl;
   return lhs;
 }
 

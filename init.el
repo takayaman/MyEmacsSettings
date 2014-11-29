@@ -80,7 +80,17 @@
       )
 (yas/global-mode 1)
 ; auto-completeと競合するのでキーを変える
-(custom-set-variables '(yas-trigger-key "<C-tab>"))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes (quote ("d04dd8b4037085a93353a66660c7a6bf2aacd89f5c5c253db09ba15b4938be60" default)))
+ '(ecb-options-version "2.40")
+ '(ede-project-directories (quote ("/home/takayaman/Documents/Programming/opencv/CvDisplayImage" "/home/takayaman/Documents/Programming/opencv" "/home/takayaman/temp/myproject/include" "/home/takayaman/temp/myproject/src" "/home/takayaman/temp/myproject")))
+ '(flymake-google-cpplint-command "/usr/local/bin/cpplint.py")
+ '(irony-additional-clang-options (quote ("-I/home/takayaman/opencv3/build/include")))
+ '(yas-trigger-key "<C-tab>"))
 ; 既存スニペット挿入
 (define-key yas-minor-mode-map (kbd "C-x y i") 'yas-insert-snippet)
 ; 新規スニペットを作成するバッファを用意
@@ -160,15 +170,7 @@
 (setq custom-theme-directory "~/.emacs.d/theme")
 (load-theme 'molokai t)
 (enable-theme 'molokai)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("d04dd8b4037085a93353a66660c7a6bf2aacd89f5c5c253db09ba15b4938be60" default)))
- '(ecb-options-version "2.40")
- '(ede-project-directories (quote ("/home/takayaman/Documents/Programming/opencv/CvDisplayImage" "/home/takayaman/Documents/Programming/opencv" "/home/takayaman/temp/myproject/include" "/home/takayaman/temp/myproject/src" "/home/takayaman/temp/myproject")))
- '(flymake-google-cpplint-command "/usr/local/bin/cpplint.py"))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

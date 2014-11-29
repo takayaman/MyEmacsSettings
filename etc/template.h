@@ -53,7 +53,7 @@ class %classname% {
  * @param rhs Right hand side
  * @return Pointer of google::LogSink object
  */
-google::LogSink& operator<<(google::LogSink& lhs, const %classname%& rhs);
+google::LogMessage& operator<<(google::LogMessage& lhs, const %classname%& rhs);
 
 %namespace-close%
 
