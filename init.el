@@ -1,3 +1,12 @@
+; python-modeの適用 デフォルトpython.elより先にロード
+;(autoload 'python-mode "python-mode" "Python Mode." t)
+;(setq py-install-directory "~/.emacs.d/elpa/python-mode-6.1.3")
+;(add-to-list 'load-path py-install-directory)
+;(require 'python-mode)
+;(setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
+;(setq interpreter-mode-alist (cons '("python" . python-mode)                                       interpreter-mode-alist))
+;(autoload 'python-mode "python-mode" "Python editing mode." t)
+
 ;; 環境ロード設定---------------------
 ;; Emacs 23以前
 ;; user-emacs-directory変数を定義
