@@ -89,3 +89,12 @@
 (global-whitespace-mode 1)
 ;(global-set-key (kbd "C-x w") 'global-whitespace-mode)
 
+ ; 80列目に縦線を表示
+ (require 'fill-column-indicator)
+(setq-default fci-rule-column 80)
+; 縦線の幅
+(setq fci-rule-width 1)
+; 縦線の色
+(setq fci-rule-color "gray40")
+(define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
+(global-fci-mode 1)
