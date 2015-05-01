@@ -98,3 +98,28 @@
 )
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 (add-to-list 'interpreter-mode-alist '("python" . python-mode))
+
+; python用テンプレート
+(defun my-template-python()
+  (time-stamp)
+  (mapc #'(lambda(c)
+            (progn
+              (goto-char (point-min))
+              (replace-string (car c) (funcall (cdr c)) nil)))
+        template-replacements-alists-py)
+  (goto-char (point-max))
+  (message "done.")
+)
+
+(defvar template-replacements-alists-py
+  '(("%file-without-ext%" . (lambda () 
+          (setq file-without-ext (file-name-sans-extension
+                                   (file-name-nondirectory (buffer-file-name))))))
+    ("%author%" . (lambda () (concat "N.Takayama")))
+    ("%email%" . (lambda () (concat "takayaman@uec.ac.jp")))
+    ("%cyear%" . (lambda () (substring (current-time-string) -4)))
+    ("%brief%" . (lambda () (read-from-minibuffer "Brief description: ")))
+    ("%company%" . (lambda () (setq campany (read-from-minibuffer "company or organization: "))))
+))
+
+

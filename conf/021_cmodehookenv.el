@@ -93,29 +93,9 @@
 )
 
 ; C/C++言語ファイルのテンプレート
-(when (require 'autoinsert)
-  ;(require 'auto-insert-choose)
-  (setq auto-insert-directory "~/.emacs.d/etc/")
-  (setq auto-insert-alist
-	(append '(
-		  ("main.c" . ["tempmain.c" my-template])
-		  ("\\.c$" . ["template.c" my-template])
-		  ("main.cpp" . ["tempmain.cpp" my-template])
-		  ("\\.cpp$" . ["template.cpp" my-template])
-		  ("globalDef.h" . ["tempglobalDef.h" my-template] )
-		  ("\\.h$" . ["template.h" my-template])
-		  ("globalDef.hpp" . ["tempglobalDef.hpp" my-template])
-		  ("\\.hpp$" . ["template.hpp" my-template])
-		  ("Project.el" . ["tempProject.el" my-eltemplate])
-		  ) auto-insert-alist))
-  )
-
-; ファイル発見時の動作に結びつけ
-(add-hook 'find-file-not-found-hooks 'auto-insert)
-
 (require 'cl)
 
-(defun my-template ()
+(defun my-template-c ()
   (time-stamp)
   (mapc #'(lambda(c)
             (progn
@@ -125,7 +105,6 @@
   (goto-char (point-max))
   (message "done.")
 )
-
 
 (defvar template-replacements-alists
   '(("%file%" . (lambda () (file-name-nondirectory (buffer-file-name))))
@@ -194,19 +173,3 @@
 ))
 
 
-(defun my-eltemplate ()
-  (time-stamp)
-  (mapc #'(lambda(c)
-            (progn
-              (goto-char (point-min))
-              (replace-string (car c) (funcall (cdr c)) nil)))
-        eltemplate-replacements-alists)
-  (goto-char (point-max))
-  (message "done.")
-)
-
-(defvar eltemplate-replacements-alists
-  '(
-    ("%project%" . (lambda () (setq project (read-from-minibuffer "project: "))))
-    )
-  )

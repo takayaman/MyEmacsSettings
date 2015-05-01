@@ -60,4 +60,5 @@
 (add-hook 'yatex-mode-hook 'my:yatex-mode-hook)
 (add-hook 'yatex-mode-hook '(lambda () (outline-minor-mode t)))
 (add-hook 'yatex-mode-hook '(lambda () (local-set-key "\C-c\C-d" 'sdic)))
+(add-hook 'yatex-mode-hook '(lambda () (auto-fill-mode -1)))
 
