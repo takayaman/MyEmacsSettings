@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """ .. py:module:: %file-without-ext%
@@ -11,7 +11,7 @@ Copyright (c) %cyear% %author% @ %company% <%email%>
 """
 
 # 標準ライブラリ
-import optparse
+import argparse
 
 # サードパーティライブラリ
 import numpy as np
@@ -21,8 +21,7 @@ import numpy as np
 
 
 # アプリケーション起動設定
-USAGE = u"%prog aug0 aug1"
-VERSION = u"%prog 0.1"
+VERSION = u"%(prog)s 0.1"
 
 # テストデータディレクトリ
 DIR_INPUT = "./images/"
@@ -30,21 +29,22 @@ DIR_INPUT = "./images/"
 DIR_OUTPUT = "./images/"
 
 
-def set_optparse():
-    global USAGE, VERSION
+def set_argparse():
 
-    parser = optparse.OptionParser(usage=USAGE, version=VERSION)
+    parser = argparse.ArgumentParser(description="%brief%")
+    parser.add_argument("--version", action="version", version=VERSION)
+    parser.add_argument("foo", action="store", help="FOOOOOOOOOO.")
     return parser
 
 
 # --- runによる呼び出し --------------------------------------------------------
 if __name__ == "__main__":
-    print __doc__
+    print(__doc__)
 
     # 引数処理
-    parser = set_optparse()
-    options, args = parser.parse_args()
+    parser = set_argparse()
+    args = parser.parse_args()
     try:
-        aug = args
+        foo = args.foo
     except:
         parser.error("Invalid arguments!!")

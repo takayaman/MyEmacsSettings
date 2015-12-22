@@ -21,7 +21,7 @@
   (defun python-shell (&rest args) nil)
   (load "~/.emacs.d/elpa/python-mode-6.1.3/python-mode.el")
 
-  (setq-default py-shell-name "/usr/local/bin/ipython2") ; for python2 opencv3が上手く動かないため
+  (setq-default py-shell-name "/usr/local/bin/ipython3")
   (setq-default py-which-bufname "IPython")
   (setq py-python-command-args
 	'("qtconsole" "--pylab=qt" "--colors" "Linux"))
