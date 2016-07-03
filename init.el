@@ -28,6 +28,7 @@
 ; elpa : package.elで落としてきたもの
 ; etc : 各種サポートファイル, 主に.el以外
 ; conf : 分割設定ファイル
+; site-list : apt-getでインストールしたもの
 (add-to-load-path "elisp" "elpa" "etc" "conf")
 
 ;; パッケージインストーラの設定
