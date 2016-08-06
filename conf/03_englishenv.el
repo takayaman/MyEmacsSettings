@@ -108,7 +108,11 @@
 (cond ((eq system-type 'gnu/linux)
        (setq sdic-inline-eiwa-dictionary "/usr/share/dict/gene.sdic")
        (setq sdic-inline-waei-dictionary "/usr/share/dict/jedict.sdic")
-       ))
+       )
+      ((eq system-type 'darwin)
+       (setq sdic-inline-eiwa-dictionary "/usr/local/share/dict/gene.sdic")
+       (setq sdic-inline-waei-dictionary "/usr/local/share/dict/jedict.sdic"))
+      )
 ; sdit tooltip
 (require 'sdic-inline-pos-tip)
 (setq sdic-inline-display-func 'sdic-inline-pos-tip-show)
