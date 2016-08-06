@@ -49,7 +49,9 @@
 ; auto-install-compatibility-setup : install-elispエイリアス
 (when (require 'auto-install nil t)
   (setq auto-install-directory "~/.emacs.d/elisp/")
-  (auto-install-update-emacswiki-package-name t)
+  (cond ((eq system-type 'gnu/linux)
+	 (auto-install-update-emacswiki-package-name t)
+	 ))
   ;;(setq url-proxy-services'(("http" . "localhost::8339")))
   (auto-install-compatibility-setup)
 )
