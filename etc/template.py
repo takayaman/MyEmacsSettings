@@ -10,22 +10,22 @@ Copyright (c) %cyear% %author% @ %company% <%email%>
 -------------------------------------------------------------------------------
 """
 
-# 標準ライブラリ
+# Standart modules
 import argparse
 
-# サードパーティライブラリ
+# Third party's modules
 import numpy as np
 
 
-# ローカルライブラリ
+# Local modules
 
 
-# アプリケーション起動設定
+# Execution settings
 VERSION = u"%(prog)s 0.1"
 
-# テストデータディレクトリ
+# Input data directories
 DIR_INPUT = "./images/"
-# 結果出力ディレクトリ
+# Output data directories
 DIR_OUTPUT = "./images/"
 
 
@@ -37,11 +37,11 @@ def set_argparse():
     return parser
 
 
-# --- runによる呼び出し --------------------------------------------------------
+# --- Execution --------------------------------------------------------
 if __name__ == "__main__":
     print(__doc__)
 
-    # 引数処理
+    # Parse arguments
     parser = set_argparse()
     args = parser.parse_args()
     try:
