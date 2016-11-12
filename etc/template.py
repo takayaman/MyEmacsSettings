@@ -10,7 +10,8 @@ Copyright (c) %cyear% %author% @ %company% <%email%>
 -------------------------------------------------------------------------------
 """
 
-# Standart modules
+# Standard modules
+from __future__ import print_function
 import argparse
 
 # Third party's modules
