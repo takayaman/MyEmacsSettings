@@ -21,10 +21,10 @@
   (defun python-shell (&rest args) nil)
   (load "~/.emacs.d/elpa/python-mode-6.1.3/python-mode.el")
 
-  (setq-default py-shell-name "/usr/local/bin/ipython3")
+  (setq-default py-shell-name "/usr/local/bin/jupyter")
   (setq-default py-which-bufname "IPython")
   (setq py-python-command-args
-	'("qtconsole" "--pylab=qt" "--colors" "Linux"))
+	'("qtconsole" "--style" "monokai"))
   (setq py-force-py-shell-name-p t)
   (setq py-shell-switch-buffers-on-execute-p t)
   (setq py-switch-buffers-on-execute-p t)
