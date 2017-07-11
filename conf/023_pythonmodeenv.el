@@ -4,11 +4,11 @@
 (defun jython-mode (&rest args) nil)
 (defun python-shell (&rest args) nil)
 
-(load "~/.emacs.d/elpa/python-mode-6.1.3/python-mode.el")
+(load "~/.emacs.d/elpa/python-mode-20170626.1017/python-mode.el")
 
 ; python-modeの適用
 (autoload 'python-mode "python-mode" "Python Mode." t)
-(setq py-install-directory "~/.emacs.d/elpa/python-mode-6.1.3")
+(setq py-install-directory "~/.emacs.d/elpa/python-mode-20170626.1017")
 (add-to-list 'load-path py-install-directory)
 (require 'python-mode)
 
@@ -19,7 +19,7 @@
   (defun python-mode (&rest args) nil)
   (defun jython-mode (&rest args) nil)
   (defun python-shell (&rest args) nil)
-  (load "~/.emacs.d/elpa/python-mode-6.1.3/python-mode.el")
+  (load "~/.emacs.d/elpa/python-mode-20170626.1017/python-mode.el")
 
   (setq-default py-shell-name "/usr/local/bin/jupyter")
   (setq-default py-which-bufname "IPython")

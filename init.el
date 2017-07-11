@@ -195,17 +195,17 @@
 ;; バックアップ設定
 (if (eq system-type 'windows-nt)
     (add-to-list 'backup-directory-alist
-		 (cons "." "$(HOME)/Document/BackUps"))
+		 (cons "." "~/Document/BackUps"))
 )
 
 (if (eq system-type 'gnu/linux)
     (add-to-list 'backup-directory-alist
-		 (cons "." "$(HOME)/Documents/emacsBackups"))
+		 (cons "." "~/Documents/emacsBackups"))
 )
 
 (if (eq system-type 'darwin)
     (add-to-list 'backup-directory-alist
-		 (cons "." "$(HOME)/Documents/Backups/emacsBackups"))
+		 (cons "." "~/Documents/Backups/emacsBackups"))
 )
 
 ;; オートセーブ設定
